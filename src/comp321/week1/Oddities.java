@@ -3,7 +3,8 @@ package comp321.week1;
 import comp321.week1.Kattio;
 
 /**
- * Oddities. (https://open.kattis.com/problems/oddities)
+ * Oddities. 
+ * (https://open.kattis.com/problems/oddities)
  * 
  * @author Yann Vonlanthen (260808862)
  *
@@ -17,6 +18,7 @@ public class Oddities {
         int n = k.getInt();
         int x;
         
+        // Iterate over all problem instances
         for (int i = 0; i < n; i++) {
             x = k.getInt();
             

@@ -9,13 +9,13 @@ import comp321.week1.Kattio;
 import sun.misc.Queue;
 
 /**
- * I Can Guess the Data Structure
+ * I Can Guess the Data Structure.
  * (https://open.kattis.com/problems/guessthedatastructure)
  * 
  * @author Yann Vonlanthen (260808862)
  *
  */
-public class GuessDatastructure {
+public class GuessTheDatastructure {
 
     public static void main(String[] args)
             throws InterruptedException, FileNotFoundException {
@@ -23,6 +23,7 @@ public class GuessDatastructure {
         // Use Kattio for I/O as suggested in tutorial
         Kattio io = new Kattio(System.in, System.out);
 
+        // Iterate over every problem instance
         while (io.hasMoreTokens()) {
             int n = io.getInt();
 
@@ -31,12 +32,13 @@ public class GuessDatastructure {
             Queue<Integer> queue = new Queue<>();
             PriorityQueue<Integer> priority = new PriorityQueue<>(1000,
                     Collections.reverseOrder());
-
+            
             boolean isStack = true;
             boolean isQueue = true;
             boolean isPriority = true;
             int count = 0;
-
+            
+            // Iterate over all the data associate to problem instance
             for (int i = 0; i < n; i++) {
                 int op = io.getInt();
                 int elem = io.getInt();
