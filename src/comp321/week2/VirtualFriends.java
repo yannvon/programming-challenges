@@ -3,6 +3,8 @@ package comp321.week2;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+import comp321.week4.Kattio;
+
 
 /**
  * Virtual Friends. 
