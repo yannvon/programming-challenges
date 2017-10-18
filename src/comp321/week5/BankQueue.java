@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 
 import comp321.week5.Kattio;
@@ -24,7 +26,7 @@ public class BankQueue {
     public static void main(String[] args) throws FileNotFoundException {
         
         // Uncomment this to test on a local file
-//         File initialFile = new File("src/comp321/week5/bank-02.in");
+//         File initialFile = new File("src/comp321/week5/bank-01.in");
 //         InputStream targetStream = new FileInputStream(initialFile);
 //         Kattio io = new Kattio(targetStream, System.out);
         
@@ -35,46 +37,40 @@ public class BankQueue {
         int T = io.getInt();
    
         // Create HashMap containing all people
-        PriorityQueue<Integer> money = new PriorityQueue<>(Collections.reverseOrder());
-        HashMap<Integer, Integer> people = new HashMap<>();
+        HashMap<Integer, ArrayList<Integer>> timeslots = new HashMap<>();
         
         for (int i = 0; i < N; i++) {
             int ci = io.getInt();
             int ti = io.getInt();
-            money.add(ci);
-            people.put(ci, ti);
-        }
-        
-        // Array with time slots occupancy
-        byte[] slots = new byte[T];
-        for (int i = 0; i < T; i++){
-            slots[i] = 0;
-        }
-        
-        
-        // GREEDY ALGORITHM
-        int waitlist_size = 0;
-        long money_scheduled = 0;
-        
-        while (!money.isEmpty() && waitlist_size < T) {
-
-            // --- Step 1: take richest guy in queue
-            int c = money.poll();
-            
-            // --- Step 2: if there is a space left for him put him on wait list at latest possible time instance
-            int leaving_time = people.get(c);
-            boolean freeSlotFound = false;
-            
-            for(int t = leaving_time; t >= 0 && !freeSlotFound; t--) {
-                if (slots[t] == 0) {
-                    slots[t] = 1;
-                    waitlist_size++;
-                    money_scheduled += c;
-                    freeSlotFound = true;
-                }
+            if(!timeslots.containsKey(ti)){
+                ArrayList<Integer> newL = new ArrayList<>();
+                newL.add(ci);
+                timeslots.put(ti, newL);
+            }
+            else{
+                timeslots.get(ti).add(ci);                
             }
         }
         
+        // GREEDY ALGORITHM
+        int money_scheduled = 0;
+        int waitlisted_people = 0;
+        
+        PriorityQueue<Integer> available_people = new PriorityQueue<>(Collections.reverseOrder());
+        //am I allowed to use hashSet?
+        
+        ArrayList<Integer> empty = new ArrayList<>();
+        
+        for(int t = T-1; t >= 0 && waitlisted_people < N; t--){
+            available_people.addAll(timeslots.getOrDefault(t, empty));
+            
+            //Decide who is richest
+            Integer c = available_people.poll();
+            if(c != null) {
+                money_scheduled += c;
+                waitlisted_people++;
+            }
+        }
         // Print solution
         io.print(money_scheduled);
 
