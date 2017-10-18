@@ -24,12 +24,12 @@ public class BankQueue {
     public static void main(String[] args) throws FileNotFoundException {
         
         // Uncomment this to test on a local file
-         File initialFile = new File("src/comp321/week5/bank-01.in");
-         InputStream targetStream = new FileInputStream(initialFile);
-         Kattio io = new Kattio(targetStream, System.out);
+//         File initialFile = new File("src/comp321/week5/bank-02.in");
+//         InputStream targetStream = new FileInputStream(initialFile);
+//         Kattio io = new Kattio(targetStream, System.out);
         
         // Use Kattio for I/O as suggested in tutorial
-//        Kattio io = new Kattio(System.in, System.out);
+        Kattio io = new Kattio(System.in, System.out);
         
         int N = io.getInt();
         int T = io.getInt();
@@ -52,24 +52,25 @@ public class BankQueue {
         }
         
         
-        // GREEADY ALGORITHM
+        // GREEDY ALGORITHM
         int waitlist_size = 0;
-        int money_scheduled = 0;
+        long money_scheduled = 0;
         
         while (!money.isEmpty() && waitlist_size < T) {
 
             // --- Step 1: take richest guy in queue
             int c = money.poll();
             
-            // --- Step 2: if there is a space left for him put him on waitlist at latest possible time instance
+            // --- Step 2: if there is a space left for him put him on wait list at latest possible time instance
             int leaving_time = people.get(c);
+            boolean freeSlotFound = false;
             
-            for(int t = leaving_time; t >= 0; t--) {
+            for(int t = leaving_time; t >= 0 && !freeSlotFound; t--) {
                 if (slots[t] == 0) {
                     slots[t] = 1;
                     waitlist_size++;
                     money_scheduled += c;
-                    break;
+                    freeSlotFound = true;
                 }
             }
         }
