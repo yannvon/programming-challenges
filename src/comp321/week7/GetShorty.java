@@ -33,12 +33,12 @@ public class GetShorty {
     public static void main(String[] args) throws FileNotFoundException {
 
         // Uncomment this to test on a local file
-        File initialFile = new File("src/comp321/week7/getshorty.in");
-        InputStream targetStream = new FileInputStream(initialFile);
-        Kattio io = new Kattio(targetStream, System.out);
+//        File initialFile = new File("src/comp321/week7/getshorty.in");
+//        InputStream targetStream = new FileInputStream(initialFile);
+//        Kattio io = new Kattio(targetStream, System.out);
 
         // Use Kattio for I/O as suggested in tutorial
-//         Kattio io = new Kattio(System.in, System.out);
+         Kattio io = new Kattio(System.in, System.out);
 
         // Iterate through all problem instances (max 20)
 
@@ -67,6 +67,7 @@ public class GetShorty {
                 double l = -1 * Math.log(io.getDouble());  //TODO Trick that solves this problem
                 
                 successors[start].add(new Pair(end, l));    //don't add edge 
+                successors[end].add(new Pair(start, l)); //undirected graph!
             }
 
             // --- ALGORITHM 1 --- Dijkstra's shortest path Algorithm no improvements
@@ -100,10 +101,10 @@ public class GetShorty {
                     }
                 }
             }
+            
             double dist = Math.pow(Math.E, -distance[targetNode]);
-            if (dist == 0){
-                dist = 1;
-            }
+            
+            
             io.println(df4.format(dist));
             
             
