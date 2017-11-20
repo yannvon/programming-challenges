@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Problem B
+ * Problem I
  * 
  * @author Yann Vonlanthen (260808862)
  *
  */
-public class B {
+public class I {
 
     public static void main(String[] args) throws FileNotFoundException {
 
