@@ -18,7 +18,7 @@ public class A {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-//        File initialFile = new File("src/comp321/contest1/a2.in");
+//        File initialFile = new File("src/comp321/contest1/a.in");
 //        InputStream targetStream = new FileInputStream(initialFile);
 //        Kattio io = new Kattio(targetStream, System.out);
 
