@@ -23,7 +23,7 @@ public class H {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-//        File initialFile = new File("src/comp321/contest1/c.in");
+//        File initialFile = new File("src/comp321/contest1/h.in");
 //        InputStream targetStream = new FileInputStream(initialFile);
 
         Scanner io = new Scanner(System.in);
