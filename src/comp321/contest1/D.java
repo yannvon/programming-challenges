@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Problem D
+ * Exact Change
  * 
  * @author Yann Vonlanthen (260808862)
  *
@@ -37,38 +37,49 @@ public class D {
                 bills[j] = io.getInt();
             }
             
-            // set up dp array
-            int[] dp = new int[10001];
-            int[] billsUsed = new int[10001];
-            dp[0] = 0;
-            for (int m = 1; m < price+1; m++) {
-                int closestSoFar = Integer.MAX_VALUE;
-                int closestBillUsed = Integer.MAX_VALUE;
-                
-                for(int b = 0; b < n; b++) {
-                    int candidate;
-                    int candidateBUsed;
-                    
-                    if(price - bills[b] <= 0) {
-                        candidate = bills[b];
-                        candidateBUsed = 1;
-                    } else {
-                        candidate = bills[b] + dp[price - bills[b]];
-                        candidateBUsed = 1 + billsUsed[price - bills[b]];
-                    }
+            /*
+             *  COMPLETLY DIFFERENT DP THAN LAST TRY
+             *  dp array only stores min number of bills to get to this value
+             *  solution can then be retrieved from that by checking which value can be reached
+             */
 
-                    if (candidate > m && (candidate < closestSoFar || 
-                            (candidate == closestSoFar && candidateBUsed < closestBillUsed))) {
-                        closestSoFar = candidate;
-                        closestBillUsed = candidateBUsed;
+            // set up dp array
+            int dpArraySize = 200000;  //should be enough since 10000 is max coin and price size
+            int[] dp = new int[dpArraySize];
+            dp[0] = 0;
+            for(int j = 1; j < dpArraySize; j++){
+                dp[j] = -1;
+            }
+            
+            /*
+             *  Iterate through bills, every time checking if it can reduce the number of 
+             *  bills used or get us to a new amount of money.
+             */
+            for(int j = 0; j < n; j++) {
+                /*
+                 * iterate through dpArray, note that we are not interested in improving 
+                 * above price.
+                 * also, we need to go from large to low values, 
+                 * in order to not used same bill multiple times
+                 */
+                for(int a = price; a >= 0; a--) {
+                    if(dp[a] != -1 && (dp[a + bills[j]] > dp[a] + 1 || dp[a + bills[j]] == -1)){
+                        dp[a + bills[j]] = dp[a] + 1;
                     }
                 }
-                
-                dp[m] = closestSoFar;
-                billsUsed[m] = closestBillUsed;
             }
-            io.println(dp[price] + " " + billsUsed[price]);
             
+            /*
+             * Start at price we want to reach and find first array entry that was reached.
+             * Print the price it represents (index) 
+             * and the amount of bills used to get there (value)
+             */
+            int currentMoneyPaied = price; //min we have to pay
+            while(dp[currentMoneyPaied] == -1) {
+                currentMoneyPaied++;
+            }
+            
+            io.println(currentMoneyPaied + " " + dp[currentMoneyPaied]);
         }
 
         // Close I/O stream and terminate

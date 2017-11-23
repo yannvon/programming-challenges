@@ -1,0 +1,19 @@
+Dear All.
+
+I have already created the folder Lab1 (in the assignment section) to upload the solution (and the proof of correctness from kattis) of the two problems that you have not solved during the contest.
+
+Rembember that the list of problems was as follows:
+
+https://open.kattis.com/problems/natrij 
+https://open.kattis.com/problems/liga 
+https://open.kattis.com/problems/ballotboxes 
+https://open.kattis.com/problems/exactchange2 
+https://open.kattis.com/problems/substrings 
+https://open.kattis.com/problems/wrapping 
+https://open.kattis.com/problems/horror 
+https://open.kattis.com/problems/countingstars 
+https://open.kattis.com/problems/t9spelling
+
+Best
+
+David
